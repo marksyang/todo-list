@@ -40,7 +40,9 @@
       "List(**)",
       "WebFetch(domain:github.com)",
       "WebSearch",
-      "Skill(pm:epic-start)"
+      "Skill(pm:epic-start)",
+      "Bash(mkdir -p .claude/epics/archived)",
+      "Bash(mv .claude/epics/todo-list .claude/epics/archived/)"
     ]
   }
 }
