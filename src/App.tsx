@@ -1,7 +1,9 @@
 import { TaskInput } from './components/TaskInput'
 import { TaskList } from './components/TaskList'
+import { useInitializeTasks } from './hooks/useTasks'
 
 function App() {
+  useInitializeTasks();
   return (
     <div className="min-h-screen bg-gray-50 flex items-start justify-center pt-16">
       <div className="w-full max-w-2xl px-4">
