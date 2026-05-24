@@ -6,6 +6,18 @@ interface TaskItemProps {
   todo: Todo;
 }
 
+// 格式化時間顯示
+function formatTime(isoString?: string): string {
+  if (!isoString) return '';
+  const date = new Date(isoString);
+  return date.toLocaleString('zh-TW', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
 export function TaskItem({ todo }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
@@ -41,40 +53,48 @@ export function TaskItem({ todo }: TaskItemProps) {
       </button>
 
       {/* 任務文字 / 編輯模式 */}
-      {isEditing ? (
-        <input
-          type="text"
-          value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-          onBlur={handleSave}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleSave();
-            if (e.key === 'Escape') {
+      <div className="flex-1 min-w-0">
+        {isEditing ? (
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            onBlur={handleSave}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSave();
+              if (e.key === 'Escape') {
+                setEditText(todo.text);
+                setIsEditing(false);
+              }
+            }}
+            className="w-full px-2 py-1 border border-blue-500 rounded focus:outline-none"
+            autoFocus
+          />
+        ) : (
+          <span
+            onDoubleClick={() => {
+              setIsEditing(true);
               setEditText(todo.text);
-              setIsEditing(false);
-            }
-          }}
-          className="flex-1 px-2 py-1 border border-blue-500 rounded focus:outline-none"
-          autoFocus
-        />
-      ) : (
-        <span
-          onDoubleClick={() => {
-            setIsEditing(true);
-            setEditText(todo.text);
-          }}
-          className={`flex-1 cursor-pointer ${
-            todo.completed ? 'line-through text-gray-400' : 'text-gray-800'
-          }`}
-        >
-          {todo.text}
-        </span>
-      )}
+            }}
+            className={`block cursor-pointer truncate ${
+              todo.completed ? 'line-through text-gray-400' : 'text-gray-800'
+            }`}
+          >
+            {todo.text}
+          </span>
+        )}
+        <div className="flex gap-2 text-xs text-gray-400 mt-0.5">
+          <span>建立: {formatTime(todo.createdAt)}</span>
+          {todo.completedAt && (
+            <span>完成: {formatTime(todo.completedAt)}</span>
+          )}
+        </div>
+      </div>
 
       {/* 刪除按鈕 */}
       <button
         onClick={() => deleteTask(todo.id)}
-        className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all"
+        className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all flex-shrink-0"
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path

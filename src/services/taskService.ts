@@ -17,9 +17,17 @@ export function createTask(text: string): Todo {
 
 // 切換任務完成狀態
 export function toggleTask(tasks: Todo[], id: string): Todo[] {
-  return tasks.map((t) =>
-    t.id === id ? { ...t, completed: !t.completed } : t
-  );
+  return tasks.map((t) => {
+    if (t.id === id) {
+      const newCompleted = !t.completed;
+      return {
+        ...t,
+        completed: newCompleted,
+        completedAt: newCompleted ? new Date().toISOString() : undefined,
+      };
+    }
+    return t;
+  });
 }
 
 // 刪除任務

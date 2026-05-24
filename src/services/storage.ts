@@ -23,6 +23,7 @@ export function loadTasks(): Todo[] {
       text: String(t.text),
       completed: Boolean(t.completed),
       createdAt: String(t.createdAt),
+      completedAt: t.completedAt ? String(t.completedAt) : undefined,
     }));
   } catch (error) {
     console.error('Failed to load tasks from localStorage:', error);
