@@ -1,8 +1,8 @@
 ---
 name: todo-list
-status: backlog
+status: completed
 created: 2026-05-19T12:50:45Z
-progress: 0%
+progress: 100%
 prd: .claude/prds/todo-list.md
 github: https://github.com/marksyang/todo-list/issues/8
 updated: 2026-05-19T12:50:45Z
