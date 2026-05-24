@@ -1,9 +1,9 @@
 ---
 name: todo-list
 description: Implementation epic for the todo-list application
-status: in-progress
+status: completed
 created: 2026-05-19T07:55:03Z
-updated: 2026-05-19T07:55:03Z
+updated: 2026-05-24T03:56:38Z
 ---
 
 # Epic: todo-list
